@@ -85,11 +85,14 @@ void req() {
     }
     // if resource is available, we either never entered the loop or we left it - we can proceed:
     resource_name[0] = toupper(resource_name[0]); // capitalized for output
-    file_out << "--- " << resource_name << " received by process " << id << endl;
+    int val;
+    sem_getvalue(resource, &val);
+    file_out << "--- " << resource_name << " received by process " << id << "; " << val << " " << resource_name << "(s) left" << endl;
     sleep(rng(1, 3));
     // after 1-3 seconds, the resource is released and the process terminates
     sem_post(resource);
-    file_out << "+++ " << resource_name << " released by process " << id << endl;
+    sem_getvalue(resource, &val);
+    file_out << "+++ " << resource_name << " released by process " << id << "; " << val << " " << resource_name << "(s) available" << endl;
 }
 
 int rng(int x, int y) {
