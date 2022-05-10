@@ -4,10 +4,13 @@
 #include "fifo.cpp"
 #include "lru.cpp"
 #include "mru.cpp"
+#include "opt.cpp"
 
 using namespace std;
 
 int main () {
+    // driver function. reads the reference string file and places the pages in a vector of integers
+    // to be used by the algorithm functions:
     ifstream in_stream;
     in_stream.open("data.csv");
     vector<int> pages;
@@ -18,9 +21,11 @@ int main () {
             pages.push_back(page);
         }
     }
-    fifo(pages);
+    
+    // page replacement algorithm function calls
+    //fifo(pages);
+    //mru(pages);
     lru(pages);
-    mru(pages);
-    mru({1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6});
+    opt(pages);
     return 0;
 }
